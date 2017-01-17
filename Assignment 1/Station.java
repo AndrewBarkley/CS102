@@ -1,0 +1,63 @@
+//Zachary Mosley
+//Login ID: mosl8748
+//CS102, Winter 2017
+//Programming Assignment 1
+//Station: An object class to be used by Database.java
+//***********************************************
+
+import java.util.*;
+
+public class Station
+{
+   private String callsign = "";
+   private String freqBand = "";
+   private float freqValue = 0.0;
+   private String frequency = "";
+   private String home = "";
+   private String format = "";
+   
+   public Station(Scanner in)
+   {
+      callsign = in.next();
+      freqBand = in.next();
+      if(freqBand.contains("AM"))
+      {
+         freqValue = in.next() * 10;
+      }
+      else
+      {
+         freqValue = in.next() / 10;
+      }
+      frequency = (String)(freqValue) + freqBand;
+      home = in.next();
+      format = in.next();
+   }
+   
+   public String getCallsign()
+   {
+      return callsign;
+   }
+   
+   public String getFrequency()
+   {
+      return frequency;
+   }
+   
+   public String getHome()
+   {
+      return home;
+   }
+   
+   public String getFormat()
+   {
+      return format;
+   }
+   
+   public String toString()
+   {
+      return callsign + ", " + 
+             frequency + ", " +
+             home + ": " +
+             format;
+   }
+}
