@@ -5,28 +5,32 @@
 //Database: Stores all Stations in an array     *
 //***********************************************
 
+import java.util.*;
+import java.io.*;
+
 public class Database
 {
    public static int DATABASE_ARRAY_SIZE = 50;
-   private Station[] archive = new Station[50];
+   private static Station[] archive = new Station[50];
    
-   public void initialize(String echo)
+   public static void initialize(String echo)
    {
-      Scanner in = new Scanner(echo);
-      count = 0;
+      Scanner in = new Scanner(echo).useDelimiter("/|\n");
+      int count = 0;
       while(in.hasNextLine())
       {
-         archive[count] = Station(in);
+         archive[count] = new Station(in);
+         count++;
       }
    }
    
    ///Each search method will notify the user if the query returns empty
-   public String searchCall(String in)
+   public static String searchCall(String in)
    {
       String temp = "";
-      for(int count = 0; count < archive.length();count++)
+      for(int count = 0; count < archive.length;count++)
       {
-         if(archive[count].callsign == in)
+         if(archive[count].getCallsign() == in)
          {
             temp += archive[count] + "\n";
          }
@@ -37,12 +41,12 @@ public class Database
       }
       return temp;
    }
-   public String searchFreq(String in)
+   public static String searchFreq(String in)
    {
       String temp = "";
-      for(int count = 0; count < archive.length();count++)
+      for(int count = 0; count < archive.length;count++)
       {
-         if(archive[count].frequency == in)
+         if(archive[count].getFrequency() == in)
          {
             temp += archive[count] + "\n";
          }
@@ -53,12 +57,12 @@ public class Database
       }
       return temp;
    }
-   public String searchHome(String in)
+   public static String searchHome(String in)
    {
       String temp = "";
-      for(int count = 0; count < archive.length();count++)
+      for(int count = 0; count < archive.length;count++)
       {
-         if(archive[count].home == in)
+         if(archive[count].getHome() == in)
          {
             temp += archive[count] + "\n";
          }
@@ -69,12 +73,12 @@ public class Database
       }
       return temp;
    }
-   public String searchFormat(String in)
+   public static String searchFormat(String in)
    {
       String temp = "";
-      for(int count = 0; count < archive.length();count++)
+      for(int count = 0; count < archive.length;count++)
       {
-         if(archive[count].format.Contains(in))
+         if(archive[count].getFormat().contains(in))
          {
             temp += archive[count] + "\n";
          }

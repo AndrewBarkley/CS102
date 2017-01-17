@@ -12,16 +12,28 @@ public class Prog1
 {
    public static void main(String [] args)
    {
-      File inFile = new File((String)(args[0]));
-      Scanner input = new Scanner(inFile);
+      File inFile = new File(args[0]);
+      boolean quit = false;
+      Scanner input = new Scanner("");
+      try
+      {
+         input = new Scanner(inFile);
+      }
+      catch (FileNotFoundException e)
+      {
+         System.out.print("ERROR 404: File not found \nThe program will now terminate");
+         quit =  true;
+      }
+      
       String echo = "";
       while(input.hasNext())
       {
          echo += input.nextLine() + "\n";
       }
+      echo = echo.substring(0,(echo.length())-1);
       Database.initialize(echo);
       Scanner in = new Scanner(System.in);
-      quit = false;
+      
       while(quit == false)
       {
          System.out.print("Available Commands:\n"+
@@ -29,30 +41,30 @@ public class Prog1
                           "2 --> Search for a frequency\n"+
                           "3 --> Search for a home\n"+
                           "4 --> Search for a format\n"+
-                          "9 --> Quit");
-         switch(in)
+                          "0 --> Quit");
+         switch(in.next())
          {
-            case 1:
+            case "1":
                {
-                  System.out.print(Database.searchCall(in));
+                  System.out.print(Database.searchCall(in.next()));
                   break;
                }
-            case 2:
+            case "2":
                {
-                  System.out.print(Database.searchFreq(echo));
+                  System.out.print(Database.searchFreq(in.next()));
                   break;
                }
-            case 3:
+            case "3":
                {
-                  System.out.print(Database.searchHome(echo));
+                  System.out.print(Database.searchHome(in.next()));
                   break;
                }
-            case 4:
+            case "4":
                {
-                  System.out.print(Database.searchFormat(echo));
+                  System.out.print(Database.searchFormat(in.next()));
                   break;
                }
-            case 0:
+            case "0":
                {
                   quit = true;
                   System.out.print("Goodbye");

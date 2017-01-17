@@ -6,29 +6,31 @@
 //***********************************************
 
 import java.util.*;
+import java.io.*;
 
 public class Station
 {
    private String callsign = "";
    private String freqBand = "";
-   private float freqValue = 0.0;
+   private double freqValue = 0.0;
    private String frequency = "";
    private String home = "";
    private String format = "";
    
    public Station(Scanner in)
    {
+      
       callsign = in.next();
       freqBand = in.next();
       if(freqBand.contains("AM"))
       {
-         freqValue = in.next() * 10;
+         freqValue = Double.parseDouble(in.next()) * 10;
       }
       else
       {
-         freqValue = in.next() / 10;
+         freqValue = Integer.parseInt(in.next()) / 10.0;
       }
-      frequency = (String)(freqValue) + freqBand;
+      frequency = freqValue + freqBand;
       home = in.next();
       format = in.next();
    }
