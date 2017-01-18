@@ -12,7 +12,8 @@ public class Station
 {
    private String callsign = "";
    private String freqBand = "";
-   private double freqValue = 0.0;
+   private double freqValueD = 0.0;
+   private int freqValueI = 0;
    private String frequency = "";
    private String home = "";
    private String format = "";
@@ -24,13 +25,14 @@ public class Station
       freqBand = in.next();
       if(freqBand.contains("AM"))
       {
-         freqValue = Double.parseDouble(in.next()) * 10;
+         freqValueI = Integer.parseInt(in.next()) * 10;
+         frequency = freqValueI +" "+ freqBand;
       }
       else
       {
-         freqValue = Integer.parseInt(in.next()) / 10.0;
+         freqValueD = Double.parseDouble(in.next()) / 10.0;
+         frequency = freqValueD +" "+ freqBand;
       }
-      frequency = freqValue + freqBand;
       home = in.next();
       format = in.next();
    }
@@ -57,9 +59,9 @@ public class Station
    
    public String toString()
    {
-      return callsign + ", " + 
-             frequency + ", " +
-             home + ": " +
-             format;
+      return getCallsign() + ", " + 
+             getFrequency() + ", " +
+             getHome() + ": " +
+             getFormat();
    }
 }

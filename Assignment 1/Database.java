@@ -12,15 +12,16 @@ public class Database
 {
    public static int DATABASE_ARRAY_SIZE = 50;
    private static Station[] archive = new Station[50];
+   private static int size;
    
    public static void initialize(String echo)
    {
       Scanner in = new Scanner(echo).useDelimiter("/|\n");
-      int count = 0;
+      size = 0;
       while(in.hasNextLine())
       {
-         archive[count] = new Station(in);
-         count++;
+         archive[size] = new Station(in);
+         size++;
       }
    }
    
@@ -28,55 +29,55 @@ public class Database
    public static String searchCall(String in)
    {
       String temp = "";
-      for(int count = 0; count < archive.length;count++)
+      for(int count = 0; count < size;count++)
       {
-         if(archive[count].getCallsign() == in)
+         if(archive[count].getCallsign().equalsIgnoreCase(in))
          {
             temp += archive[count] + "\n";
          }
       }
       if(temp == "")
       {
-         temp = "Sorry, query empty";
+         temp = "Sorry, query empty\n";
       }
       return temp;
    }
-   public static String searchFreq(String in)
+   public static String searchFreq(String in1, String in2)
    {
       String temp = "";
-      for(int count = 0; count < archive.length;count++)
+      for(int count = 0; count < size;count++)
       {
-         if(archive[count].getFrequency() == in)
+         if(archive[count].getFrequency().equalsIgnoreCase(in2 +" "+ in1))
          {
             temp += archive[count] + "\n";
          }
       }
       if(temp == "")
       {
-         temp = "Sorry, query empty";
+         temp = "Sorry, query empty\n";
       }
       return temp;
    }
    public static String searchHome(String in)
    {
       String temp = "";
-      for(int count = 0; count < archive.length;count++)
+      for(int count = 0;count < size;count++)
       {
-         if(archive[count].getHome() == in)
+         if(archive[count].getHome().equalsIgnoreCase(in))
          {
             temp += archive[count] + "\n";
          }
       }
       if(temp == "")
       {
-         temp = "Sorry, query empty";
+         temp = "Sorry, query empty\n";
       }
       return temp;
    }
    public static String searchFormat(String in)
    {
       String temp = "";
-      for(int count = 0; count < archive.length;count++)
+      for(int count = 0; count < size;count++)
       {
          if(archive[count].getFormat().contains(in))
          {
@@ -85,9 +86,18 @@ public class Database
       }
       if(temp == "")
       {
-         temp = "Sorry, query empty";
+         temp = "Sorry, query empty\n";
       }
       return temp;
+   }
+   public static void print()
+   {
+      System.out.println();
+      for(int count=0;count < size;count++)
+      {
+         System.out.println(archive[count]);
+      }
+      System.out.println();
    }
    
 }

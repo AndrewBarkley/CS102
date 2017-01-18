@@ -30,7 +30,8 @@ public class Prog1
       {
          echo += input.nextLine() + "\n";
       }
-      echo = echo.substring(0,(echo.length())-1);
+      if(!quit)
+         echo = echo.substring(0,(echo.length())-1);
       Database.initialize(echo);
       Scanner in = new Scanner(System.in);
       
@@ -41,39 +42,63 @@ public class Prog1
                           "2 --> Search for a frequency\n"+
                           "3 --> Search for a home\n"+
                           "4 --> Search for a format\n"+
-                          "0 --> Quit");
+                          "5 --> Print entire database\n"+
+                          "0 --> Quit\n>>");
          switch(in.next())
          {
             case "1":
                {
-                  System.out.print(Database.searchCall(in.next()));
+                  System.out.println();
+                  System.out.print("Enter your Call Sign: ");
+                  System.out.println();
+                  System.out.println(Database.searchCall(in.next()));
                   break;
                }
             case "2":
                {
-                  System.out.print(Database.searchFreq(in.next()));
+                  System.out.println();
+                  System.out.print("Enter your Frequency Band (AM or FM): ");
+                  String in1 = in.next();
+                  System.out.print("Enter your Frequency Value: ");
+                  String in2 = in.next();
+                  System.out.println();
+                  System.out.println(Database.searchFreq(in1, in2));
                   break;
                }
             case "3":
                {
-                  System.out.print(Database.searchHome(in.next()));
+                  System.out.println();
+                  System.out.print("Enter your Home: ");
+                  System.out.println();
+                  System.out.println(Database.searchHome(in.next()));
                   break;
                }
             case "4":
                {
-                  System.out.print(Database.searchFormat(in.next()));
+                  System.out.println();
+                  System.out.print("Enter your Format: ");
+                  System.out.println();
+                  System.out.println(Database.searchFormat(in.next()));
+                  break;
+               }
+            case "5":
+               {
+                  Database.print();
                   break;
                }
             case "0":
                {
+                  System.out.println();
                   quit = true;
                   System.out.print("Goodbye");
                   break;
                }
             default:
                {
-               //Initial error handeling to force calling on predefined methods
-                  System.out.print("Error 503: Command not recognised");
+                  //Initial error handeling to force calling on predefined methods
+                  System.out.println();
+                  System.out.println("Error 503: Command not recognised");
+                  System.out.println();
                }
          }
       }
