@@ -11,6 +11,13 @@ import java.io.*;
 
 public class Prog1
 {
+//***********************************************
+//Zachary Mosley                                *
+//Login ID: mosl8748                            *
+//CS102, Winter 2017                            *
+//Programming Assignment 1                      *
+//Prog1: Main method and UI                     *
+//***********************************************
    public static void main(String [] args)
    {
       File inFile = new File(args[0]);
@@ -22,7 +29,8 @@ public class Prog1
       }
       catch (FileNotFoundException e)
       {
-         System.out.print("ERROR 404: File not found \nThe program will now terminate");
+         System.out.print("ERROR 404: File not found \n" +
+                           "The program will now terminate");
          quit =  true;
       }
       

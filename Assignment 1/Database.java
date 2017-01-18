@@ -11,7 +11,7 @@ import java.io.*;
 
 public class Database
 {
-   public static int DATABASE_ARRAY_SIZE = 50;
+   public final static int DATABASE_ARRAY_SIZE = 50;
    private static Station[] archive = new Station[50];
    private static int size;
    
