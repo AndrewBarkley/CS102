@@ -1,9 +1,10 @@
-//***********************************************
-//Zachary Mosley                                *
-//CS102, Winter 2017                            *
-//Programming Assignment 1                      *
-//Database: Stores all Stations in an array     *
-//***********************************************
+//********************************************
+//Zachary Mosley                             *
+//Login ID: mosl8748                         *
+//CS102, Winter 2017                         *
+//Programming Assignment 1                   *
+//Database: Stores all Stations in an array  *
+//********************************************
 
 import java.util.*;
 import java.io.*;

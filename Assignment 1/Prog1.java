@@ -1,5 +1,6 @@
 //***********************************************
 //Zachary Mosley                                *
+//Login ID: mosl8748                            *
 //CS102, Winter 2017                            *
 //Programming Assignment 1                      *
 //Prog1: Main method and UI                     *
@@ -32,7 +33,14 @@ public class Prog1
       }
       if(!quit)
          echo = echo.substring(0,(echo.length())-1);
-      Database.initialize(echo);
+      try
+      {
+         Database.initialize(echo);
+      }
+      catch(ArrayStoreException e)
+      {
+         quit = true;
+      }
       Scanner in = new Scanner(System.in);
       
       while(quit == false)
