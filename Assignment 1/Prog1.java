@@ -11,13 +11,17 @@ import java.io.*;
 
 public class Prog1
 {
-//***********************************************
-//Zachary Mosley                                *
-//Login ID: mosl8748                            *
-//CS102, Winter 2017                            *
-//Programming Assignment 1                      *
-//Prog1: Main method and UI                     *
-//***********************************************
+//****************************************************
+//Method: Main                                       *
+//Purpose: Main method / UI that calls on methods    *
+//                                                   *
+//Paramaters:                                        *
+// callsign             Object data                  *
+// frequency            Object data                  *
+// home                 Object data                  *
+// format               Object data                  *
+//Returns: String:      Data from requested variable *
+//****************************************************
    public static void main(String [] args)
    {
       File inFile = new File(args[0]);
