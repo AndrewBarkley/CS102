@@ -20,31 +20,31 @@ public class Station
    private String format = "";//contains Station format
    
 //***********************************************************
-//Method: Consttructor                                      *
+//Method: Constructor                                       *
 //Purpose: To manage the creation of Station Objects        *
 //                                                          *
 //Paramaters:                                               *
 // Scanner in           reads input file for assigning data *
 //Returns: Station:     Data from requested variable        *
 //***********************************************************
-   public Station(Scanner in)
+   public Station(Scanner input)
    {
       try
       {
-         callsign = in.next();
-         freqBand = in.next();
+         callsign = input.next();
+         freqBand = input.next();
          if(freqBand.contains("AM"))//finds frequency for AM Stations
          {
-            freqValueI = Integer.parseInt(in.next()) * 10;
+            freqValueI = Integer.parseInt(input.next()) * 10;
             frequency = freqValueI +" "+ freqBand;
          }
          else if (freqBand.contains("FM"))//finds frequency for FM Stations
          {
-            freqValueD = Double.parseDouble(in.next()) / 10.0;
+            freqValueD = Double.parseDouble(input.next()) / 10.0;
             frequency = freqValueD +" "+ freqBand;
          }
-         home = in.next();
-         format = in.next();
+         home = input.next();
+         format = input.next();
       }
       //The catch() and if() ensure every variable has a value or the program closes
       catch(NullPointerException e)
