@@ -16,14 +16,14 @@ public class Prog1
 //Purpose: Main method / UI that calls on methods    *
 //                                                   *
 //Paramaters:                                        *
-// callsign             Object data                  *
-//Returns:        void                               *
+// String[] args     Grabs file the user enters      *
+//Returns:           void                            *
 //****************************************************
    public static void main(String [] args)
    {
-      File inFile = new File(args[0]);
-      boolean quit = false;
-      Scanner input = new Scanner("");
+      File inFile = new File(args[0]);//load data file
+      boolean quit = false;//the program will end when true
+      Scanner input = new Scanner("");//reads data file
       try
       {
          input = new Scanner(inFile).useDelimiter("/|\n");
@@ -34,17 +34,18 @@ public class Prog1
                            "The program will now terminate");
          quit =  true;
       }
+      
       try
       {
          Database.initialize(input);
       }
       catch(ArrayStoreException e)
-      {
+      {//ArrayStore is set to be thrown if 
+       //    the initialize can't store the data
          quit = true;
       }
       
       //Start User Interface
       Database.interpret(quit);
-      
    }
 }
