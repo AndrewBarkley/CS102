@@ -170,6 +170,7 @@ public class Database
    public static void interpret(boolean quit)
    {
       Scanner in = new Scanner(System.in);//gets user commands
+      int secret = 0;//counter used for the easter egg
       
       while(quit == false)
       {  //repeating interface of the program
@@ -180,7 +181,7 @@ public class Database
                           "4 --> Search for a format\n"+
                           "5 --> Print entire database\n"+
                           "0 --> Quit\n>>");
-         switch(in.next())
+         switch(in.nextLine())
          {
             case "1":
                {  //search call sign
@@ -222,11 +223,20 @@ public class Database
                   System.out.print("Goodbye");
                   break;
                }
+            case "deja vu":
+               {//Easter egg for fun
+                  if (secret == 0)
+                  {
+                     System.out.println("\nAchievement Unlocked: Found the glitch in the matrix\n");
+                     secret++;
+                  }
+                  else
+                     System.out.println("\nError 503: Command not recognised\n");
+                  break;
+               }
             default:
                {  //Error handeling to force calling on predefined methods
-                  System.out.println();
-                  System.out.println("Error 503: Command not recognised");
-                  System.out.println();
+                  System.out.println("\nError 503: Command not recognised\n");
                }
          }
       }
