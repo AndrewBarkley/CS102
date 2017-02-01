@@ -32,16 +32,16 @@ public class LinkedList implements ListInterface
       return size(current.getNext()) + 1;
    }
    
-   public Object get(int index)
+   public Station get(int index)
    {
       if(index < 0 || index > size())
          throw new IndexOutOfBoundsException();
       return get(index, head);
    }
-   private Object get(int index, Node current)
+   private Station get(int index, Node current)
    {
       if(index == 0)
-         return current;
+         return current.getDatum();
       return get(--index, current.getNext());
    }
    
@@ -49,30 +49,42 @@ public class LinkedList implements ListInterface
    public void add(int index, Scanner input)
    {
       //error handeling
-      add(index, input, head);
+      head = add(index, input, head);
    }
-   private void add(int index, Scanner input, Node current)
+   private Node add(int index, Scanner input, Node current)
    {
-      if(index == 1)
+      if(index == 0)
       {
-         Node added = new Node(input, current.getNext());
-         current.setNext(added);
+         Node splice = new Node(input, current);
+         return splice;
       }
-      add(--index, input, current.getNext());
+      if (current == null)
+         throw new IndexOutOfBoundsException();
+      current.setNext(add(--index, input, current.getNext()));
+      return current;
    }
    
    //Expiremental recursive remove
-   public void remove(int index)
+   public Station remove(int index)
    {
       //error handeling
-      add(index, head);
+      Station temp = get(index);
+      remove(index, head);
+      return temp;
    }
-   private void add(int index, Node current)
+   private Node remove(int index, Node current)
    {
-      if(index == 1)
+      if(current == null)
+         throw new IndexOutOfBoundsException();
+      if(index == 0)
       {
-         
+         return current.getNext();
       }
-      add(--index, current.getNext());
+      current.setNext(remove(--index,current.getNext()));
+      return current;
+   }
+   public void removeAll()
+   {
+      head = null;
    }
 }
