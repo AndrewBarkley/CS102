@@ -11,12 +11,6 @@ import java.io.*;
 
 public class Database
 {
-   public final static int DATABASE_ARRAY_SIZE = 50;
-                         //^Arbitrary but reasonable array size
-   private static Station[] archive = new Station[50];
-                          //^Array to store all stations
-   private static int size;
-                    //^Int to track # of used array slots
    
 //*******************************************************************
 //Method: Initialize                                                *
@@ -28,12 +22,7 @@ public class Database
 //*******************************************************************
    public static void initialize(Scanner input)
    {
-      size = 0;
-      while(input.hasNextLine())
-      {
-         archive[size] = new Station(input);
-         size++;
-      }
+   
    }
 
    
@@ -47,19 +36,7 @@ public class Database
 //********************************************************************
    public static String searchCall(String in)
    {
-      String temp = "";//string to return after search
-      for(int count = 0; count < size;count++)
-      {
-         if(archive[count].getCallsign().equalsIgnoreCase(in))
-         {
-            temp += archive[count] + "\n";
-         }
-      }
-      if(temp == "")
-      {
-         temp = "Sorry, query empty\n";
-      }
-      return temp;
+
    }
    
 //******************************************************************
@@ -73,19 +50,7 @@ public class Database
 //******************************************************************
    public static String searchFreq(String in1, String in2)
    {
-      String temp = "";//string to return after search
-      for(int count = 0; count < size;count++)
-      {
-         if(archive[count].getFrequency().equalsIgnoreCase(in2 +" "+ in1))
-         {
-            temp += archive[count] + "\n";
-         }
-      }
-      if(temp == "")
-      {
-         temp = "Sorry, query empty\n";
-      }
-      return temp;
+
    }
    
 //****************************************************************
@@ -98,19 +63,7 @@ public class Database
 //****************************************************************
    public static String searchHome(String in)
    {
-      String temp = "";//string to return after search
-      for(int count = 0;count < size;count++)
-      {
-         if(archive[count].getHome().equalsIgnoreCase(in))
-         {
-            temp += archive[count] + "\n";
-         }
-      }
-      if(temp == "")
-      {
-         temp = "Sorry, query empty\n";
-      }
-      return temp;
+
    }
    
 //****************************************************************
@@ -123,19 +76,7 @@ public class Database
 //****************************************************************
    public static String searchFormat(String in)
    {
-      String temp = "";//string to return after search
-      for(int count = 0; count < size;count++)
-      {
-         if(archive[count].getFormat().contains(in))
-         {
-            temp += archive[count] + "\n";
-         }
-      }
-      if(temp == "")
-      {
-         temp = "Sorry, query empty\n";
-      }
-      return temp;
+
    }
 
    
@@ -148,15 +89,7 @@ public class Database
 //***********************************************
    public static void print()
    {
-      System.out.println();
-      int count;//keeps track of times it printed
-      for(count=0;count < size;count++)
-      {
-         System.out.print(archive[count]);
-      }
-      if(count == 0)
-         System.out.print("ALERT: No stations in database!");
-      System.out.println("\n");
+
    }
    
 //**************************************************************
@@ -170,6 +103,12 @@ public class Database
    public static void interpret(boolean quit)
    {
       Scanner in = new Scanner(System.in);//gets user commands
+      final String SEARCH_CALLSIGN = "1";
+      final String SEARCH_FREQUENCY = "2";
+      final String SEARCH_HOME = "3";
+      final String SEARCH_FORMAT = "4";
+      final String PRINT = "5";
+      final String QUIT = "0";
       
       while(quit == false)
       {  //repeating interface of the program
@@ -182,13 +121,13 @@ public class Database
                           "0 --> Quit\n>>");
          switch(in.next())
          {
-            case "1":
+            case SEARCH_CALLSIGN:
                {  //search call sign
                   System.out.print("\nEnter your Call Sign: \n");
                   System.out.println(Database.searchCall(in.next()));
                   break;
                }
-            case "2":
+            case SEARCH_FREQUENCY:
                {  //search frequency
                   System.out.print("\nEnter your Frequency Band (AM or FM): ");
                   String in1 = in.next();//contains the band AM/FM
@@ -198,24 +137,24 @@ public class Database
                   System.out.println(Database.searchFreq(in1, in2));
                   break;
                }
-            case "3":
+            case SEARCH_HOME:
                {  //search home
                   System.out.print("\nEnter your Home: \n");
                   System.out.println(Database.searchHome(in.next()));
                   break;
                }
-            case "4":
+            case SEARCH_FORMAT:
                {  //search format
                   System.out.print("\nEnter your Format: \n");
                   System.out.println(Database.searchFormat(in.next()));
                   break;
                }
-            case "5":
+            case PRINT:
                {  //print all
                   Database.print();
                   break;
                }
-            case "0":
+            case QUIT:
                {  //close
                   System.out.println();
                   quit = true;

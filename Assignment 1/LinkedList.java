@@ -9,7 +9,7 @@
 import java.util.*;
 import java.io.*;
 
-public class LinkedList //implements ListInterface
+public class LinkedList implements ListInterface
 {
    Node head;
    
