@@ -31,7 +31,7 @@ public class LinkedList implements ListInterface
          return 0;
       return size(current.getNext()) + 1;
    }
-   
+   //get
    public Station get(int index)
    {
       if(index < 0 || index > size())
@@ -44,8 +44,7 @@ public class LinkedList implements ListInterface
          return current.getDatum();
       return get(--index, current.getNext());
    }
-   
-   //Dont know the recursive yet but this is a test
+   //add
    public void add(int index, Scanner input)
    {
       //error handeling
@@ -63,8 +62,7 @@ public class LinkedList implements ListInterface
       current.setNext(add(--index, input, current.getNext()));
       return current;
    }
-   
-   //Expiremental recursive remove
+   //remove
    public Station remove(int index)
    {
       //error handeling
@@ -86,5 +84,27 @@ public class LinkedList implements ListInterface
    public void removeAll()
    {
       head = null;
+   }
+   //sort
+   public void sort()
+   {
+      head = sort(head);
+   }
+   private Node sort(Node current)
+   {
+      Node next = current.getNext();
+      if(next == null)
+         return current;
+      String currentSign = current.getDatum().getCallsign();
+      String nextSign = next.getDatum().getCallsign();
+      int compare = currentSign.compareTo(nextSign);
+      if(compare > 0)
+      {
+         current.setNext(next.getNext());
+         next.setNext(current);
+         return sort(current);
+      }
+      return sort(next);
+      
    }
 }

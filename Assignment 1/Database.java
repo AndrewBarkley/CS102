@@ -9,7 +9,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Database
+public class Database implements DatabaseInterface
 {
    
 //*******************************************************************
@@ -20,7 +20,7 @@ public class Database
 // Scanner input          contains the format the user is searching *
 //Returns:                void                                      *
 //*******************************************************************
-   public static void initialize(Scanner input)
+   public void initialize(Scanner input)
    {
    
    }
@@ -34,9 +34,9 @@ public class Database
 // String in           contains the call sign the user is searching  *
 //Returns: String:     a list of all stations that fit the query     *
 //********************************************************************
-   public static String searchCall(String in)
+   public String searchCall(String in)
    {
-
+   
    }
    
 //******************************************************************
@@ -48,9 +48,9 @@ public class Database
 // String in2          contains the channel the user is searching  *
 //Returns: String:     a list of all stations that fit the query   *
 //******************************************************************
-   public static String searchFreq(String in1, String in2)
+   public String searchFreq(String in1, String in2)
    {
-
+   
    }
    
 //****************************************************************
@@ -61,9 +61,9 @@ public class Database
 // String in           contains the home the user is searching   *
 //Returns: String:     a list of all stations that fit the query *
 //****************************************************************
-   public static String searchHome(String in)
+   public String searchHome(String in)
    {
-
+   
    }
    
 //****************************************************************
@@ -74,9 +74,9 @@ public class Database
 // String in           contains the format the user is searching *
 //Returns: String:     a list of all stations that fit the query *
 //****************************************************************
-   public static String searchFormat(String in)
+   public String searchFormat(String in)
    {
-
+   
    }
 
    
@@ -87,9 +87,9 @@ public class Database
 //Paramaters:          N/A                      *
 //Returns:             void                     *
 //***********************************************
-   public static void print()
+   public void print()
    {
-
+   
    }
    
 //**************************************************************
@@ -100,7 +100,7 @@ public class Database
 // boolean quit        closes the loop (and program) when true *
 //Returns:             void                                    *
 //**************************************************************
-   public static void interpret(boolean quit)
+   public void interpret(boolean quit)
    {
       Scanner in = new Scanner(System.in);//gets user commands
       final String SEARCH_CALLSIGN = "1";
@@ -124,7 +124,7 @@ public class Database
             case SEARCH_CALLSIGN:
                {  //search call sign
                   System.out.print("\nEnter your Call Sign: \n");
-                  System.out.println(Database.searchCall(in.next()));
+                  System.out.println(searchCall(in.next()));
                   break;
                }
             case SEARCH_FREQUENCY:
@@ -134,24 +134,24 @@ public class Database
                   System.out.print("Enter your Frequency Value: ");
                   String in2 = in.next();//contains the channel
                   System.out.println();
-                  System.out.println(Database.searchFreq(in1, in2));
+                  System.out.println(searchFreq(in1, in2));
                   break;
                }
             case SEARCH_HOME:
                {  //search home
                   System.out.print("\nEnter your Home: \n");
-                  System.out.println(Database.searchHome(in.next()));
+                  System.out.println(searchHome(in.next()));
                   break;
                }
             case SEARCH_FORMAT:
                {  //search format
                   System.out.print("\nEnter your Format: \n");
-                  System.out.println(Database.searchFormat(in.next()));
+                  System.out.println(searchFormat(in.next()));
                   break;
                }
             case PRINT:
                {  //print all
-                  Database.print();
+                  print();
                   break;
                }
             case QUIT:
