@@ -5,7 +5,7 @@ public interface DatabaseInterface
 {
    public void initialize(Scanner input);
    public String searchCall(String in);
-   public String searchFreq(String in1, String in2);
+   public String searchFreq(String in);
    public String searchHome(String in);
    public String searchFormat(String in);
    public void print();

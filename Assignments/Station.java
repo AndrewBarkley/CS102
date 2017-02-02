@@ -2,7 +2,7 @@
 //Zachary Mosley                                         *
 //Login ID: mosl8748                                     *
 //CS102, Winter 2017                                     *
-//Programming Assignment 1                               *
+//Programming Assignment 2                               *
 //Station: An object class to be used by Database.java   *
 //********************************************************
 
@@ -47,7 +47,7 @@ public class Station
          format = input.next();
       }
       //The catch() and if() ensure every variable has a value or the program closes
-      catch(NullPointerException e)
+      catch(NullPointerException handeled)
       {
          System.out.println("ERROR 307: Invalid Station object input.\n"+
             "\nProgram will now terminate");
@@ -58,6 +58,49 @@ public class Station
       {
          System.out.println("ERROR 307: Invalid Station object input.\n"+
             "\nProgram will now terminate");
+         throw new ArrayStoreException();
+      }
+   }
+//***********************************************************
+//Method: Constructor                                       *
+//Purpose: To manage the creation of Station Objects        *
+//                                                          *
+//Paramaters:                                               *
+// String in            contains input data                 *
+//Returns: Station:     Data from requested variable        *
+//***********************************************************   
+   public Station(String in)
+   {
+      Scanner input = new Scanner(in).useDelimiter("/");
+      try
+      {
+         freqBand = input.next();
+         callsign = input.next();
+         if(freqBand.contains("AM"))//finds frequency for AM Stations
+         {
+            freqValueI = Integer.parseInt(input.next());
+            frequency = freqValueI +" "+ freqBand;
+         }
+         else if (freqBand.contains("FM"))//finds frequency for FM Stations
+         {
+            freqValueD = Double.parseDouble(input.next());
+            frequency = freqValueD +" "+ freqBand;
+         }
+         home = input.next();
+         format = input.next();
+      }
+      //The catch() and if() ensure every variable has a value or the program closes
+      catch(NullPointerException handeled)
+      {
+         System.out.println("ERROR 307: Invalid Station object input.\n"+
+            "\nAdd canceled");
+         throw new ArrayStoreException();
+      }
+      if(callsign=="" || frequency=="" ||
+         home=="" || format=="")
+      {
+         System.out.println("ERROR 307: Invalid Station object input.\n"+
+            "\nAdd canceled");
          throw new ArrayStoreException();
       }
    }

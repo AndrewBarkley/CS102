@@ -2,7 +2,7 @@
 //Zachary Mosley                                         *
 //Login ID: mosl8748                                     *
 //CS102, Winter 2017                                     *
-//Programming Assignment 1                               *
+//Programming Assignment 2                               *
 //Node: An object class to be used by LinkedList.java    *
 //********************************************************
 
@@ -11,15 +11,21 @@ import java.io.*;
 
 public class Node
 {
-   private Station datum;
-   private Node next;
+   private Station datum;//store Station info
+   private Node next;//stores next Node reference
    
+//***********************************************************
+//Method: Constructor                                       *
+//Purpose: To manage the creation of Station Objects        *
+//                                                          *
+//Paramaters:             n/a                               *
+//Returns:Node:           newly built Node                  *
+//***********************************************************
    public Node()
    {
       datum = null;
       next = null;
    }
-   
 //***********************************************************
 //Method: Constructor                                       *
 //Purpose: To manage the creation of Station Objects        *
@@ -28,7 +34,7 @@ public class Node
 // Scanner in           reads input file for assigning data *
 //Returns: Station:     Data from requested variable        *
 //***********************************************************
-   public Node(Scanner input, Node next)
+   public Node(Station input, Node next)
    {
       this();
       setDatum(input);
@@ -37,7 +43,7 @@ public class Node
    }
   
 //****************************************************
-//Method: Accessors/Mutators                         *
+//Method: Accessors                                  *
 //Purpose: To securely obtain object data            *
 //                                                   *
 //Paramaters:        N/A                             *
@@ -47,17 +53,23 @@ public class Node
    {
       return datum;
    }
-   
-   public void setDatum(Scanner input)//edit
-   {
-      datum = new Station(input);
-   }
-   
    public Node getNext()
    {
       return next;
    }
-   
+//****************************************************
+//Method:  Mutators                                  *
+//Purpose: To securely obtain object data            *
+//                                                   *
+//Paramaters:                                        *
+// Station:input     what to set datum as            *
+// Node:next         what to set this.next to        *
+//Returns:           void                            *
+//****************************************************   
+   public void setDatum(Station input)//edit
+   {
+      datum = input;
+   }
    public void setNext(Node next)//edit
    {
       this.next = next;
