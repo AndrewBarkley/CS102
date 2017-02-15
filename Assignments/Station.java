@@ -141,7 +141,8 @@ public class Station
 //*********************************************************
    public String toString()
    {
-      return getCallsign() + ", " + 
+      return "   " +
+             getCallsign() + ", " + 
              getFrequency() + ", " +
              getHome() + ": " +
              getFormat();
