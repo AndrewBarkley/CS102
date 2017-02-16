@@ -216,12 +216,12 @@ public class Database //implements DatabaseInterface
    private void sort(LinkedList<Station> list)
    {
       int last = list.size()-1;
-      int place = 0;
+      int place = last;
       while(!isSorted(list))
       {
          //find 'largest' E
          Station big = list.get(last);
-         for(int index = last-1;index >= 0;index--)
+         for(int index = last;index >= 0;index--)
          {
             Station next = list.get(index);
             if(big.getCallsign().compareTo(next.getCallsign()) < 0)
@@ -231,7 +231,7 @@ public class Database //implements DatabaseInterface
             }
          }
          //switch with last E
-         if(place != last)
+         if(place < last)
          {
             Station temp = list.remove(last);
             list.add(last,list.get(place));
@@ -277,7 +277,7 @@ public class Database //implements DatabaseInterface
       in.nextLine();//skips empty line
       temp = temp + in.nextLine() +"/";
       System.out.print("\nEnter your Format: ");
-      temp = temp + in.nextLine() + "\n";
+      temp = temp + in.nextLine();
       try
       {
          System.out.println();
@@ -473,7 +473,7 @@ public class Database //implements DatabaseInterface
                   {
                      am.clear();
                      fm.clear();
-                     System.out.print("Station Deleted\n\n");
+                     System.out.print("All Stations Deleted\n\n");
                   }
                   else
                      System.out.print("Delete canceled. Returning to menu\n\n");
