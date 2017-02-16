@@ -30,10 +30,15 @@ public class Prog3
       }
       catch (ArrayIndexOutOfBoundsException handeled){}
       boolean quit = false;//the program will end when true
-      Scanner input = new Scanner("");//reads data file
+      Scanner in = new Scanner("");//reads data file
+      String storage = "";//in stores info here
+      Scanner input = new Scanner("");//used for station creation
       try
       {
-         input = new Scanner(inFile).useDelimiter("/|\n");
+         in = new Scanner(inFile).useDelimiter("/|\n");
+         while(in.hasNextLine())
+            storage = storage + in.nextLine() + "\n";
+         input = new Scanner(storage).useDelimiter("/|\n");
       }
       catch (FileNotFoundException handeled)
       {

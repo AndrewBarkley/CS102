@@ -145,6 +145,6 @@ public class Station
              getCallsign() + ", " + 
              getFrequency() + ", " +
              getHome() + ": " +
-             getFormat();
+             getFormat() +"\n";
    }
 }
