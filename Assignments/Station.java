@@ -2,7 +2,7 @@
 //Zachary Mosley                                         *
 //Login ID: mosl8748                                     *
 //CS102, Winter 2017                                     *
-//Programming Assignment 2                               *
+//Programming Assignment 3                               *
 //Station: An object class to be used by Database.java   *
 //********************************************************
 

@@ -2,7 +2,7 @@
 //Zachary Mosley                                *
 //Login ID: mosl8748                            *
 //CS102, Winter 2017                            *
-//Programming Assignment 2                      *
+//Programming Assignment 3                      *
 //Prog3: Main method and UI                     *
 //***********************************************
 

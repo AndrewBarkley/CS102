@@ -1,15 +1,15 @@
-//**********************************************
-//Zachary Mosley                               *
-//Login ID: mosl8748                           *
-//CS102, Winter 2017                           *
-//Programming Assignment 2                     *
-//Database: Stores all Nodes in an linkedList  *
-//**********************************************
+//******************************************************
+//Zachary Mosley                                       *
+//Login ID: mosl8748                                   *
+//CS102, Winter 2017                                   *
+//Programming Assignment 3                             *
+//Database: Stores/Manages all Nodes in an linkedList  *
+//******************************************************
 
 import java.util.*;
 import java.io.*;
 
-public class Database //implements DatabaseInterface
+public class Database
 {
    LinkedList<Station> am = new LinkedList();//for all AM stations
    LinkedList<Station> fm = new LinkedList();//for all FM stations
@@ -63,7 +63,7 @@ public class Database //implements DatabaseInterface
 // String type         decides what is being searched                *
 //Returns: String:     a list of all stations that fit the query     *
 //********************************************************************
-   public String search(String in,String type)
+   private String search(String in,String type)
    {
       String list = "\nam Stations:\n";//Stores the query results
       int count = 0;//counts through each list
@@ -93,7 +93,7 @@ public class Database //implements DatabaseInterface
          }
          if(getAM.contains(in))
          {
-            list = list + am.get(count) + "\n";
+            list = list + am.get(count);
          }
          count++;
       }
@@ -123,7 +123,7 @@ public class Database //implements DatabaseInterface
          }
          if(getFM.contains(in))
          {
-            list = list + fm.get(count) + "\n";
+            list = list + fm.get(count);
          }
          count++;
       }
@@ -399,7 +399,7 @@ public class Database //implements DatabaseInterface
          {
             case SEARCH_CALLSIGN:
                {  //search call sign
-                  System.out.print("\nEnter your Call Sign: \n");
+                  System.out.print("\nEnter your Call Sign: ");
                   try
                   {
                      System.out.println(search(in.nextLine(),SEARCH_CALLSIGN));
@@ -413,7 +413,7 @@ public class Database //implements DatabaseInterface
             
             case SEARCH_FREQUENCY:
                {  //search frequency
-                  System.out.print("\nEnter your Frequency Value: \n");
+                  System.out.print("\nEnter your Frequency Value: ");
                   try
                   {
                      System.out.println(search(in.nextLine(),SEARCH_FREQUENCY));
@@ -426,7 +426,7 @@ public class Database //implements DatabaseInterface
                }
             case SEARCH_HOME:
                {  //search home
-                  System.out.print("\nEnter your Home: \n");
+                  System.out.print("\nEnter your Home: ");
                   try
                   {
                      System.out.println(search(in.nextLine(),SEARCH_HOME));
@@ -439,7 +439,7 @@ public class Database //implements DatabaseInterface
                }
             case SEARCH_FORMAT:
                {  //search format
-                  System.out.print("\nEnter your Format: \n");
+                  System.out.print("\nEnter your Format: ");
                   try
                   {
                      System.out.println(search(in.nextLine(),SEARCH_FORMAT));
