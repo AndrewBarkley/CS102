@@ -49,8 +49,6 @@ public class Database
          }
       }
       
-      sort(am);//Sort both after filling them
-      sort(fm);
    }
 
    
@@ -180,67 +178,8 @@ public class Database
       System.out.println();
    }
    
-//******************************************
-//Method: sort                             *
-//Purpose: return true if list is sorted   *
-//                                         *
-//Paramaters:                              *
-// LinkedList list     Which list to test  *
-//Returns: boolean:    is the list sorted  *
-//******************************************
-   public boolean isSorted(LinkedList<Station> list)
-   {
-      int count = 0;
-      while(count < list.size()-1)
-      {
-         String current = list.get(count).getCallsign();
-         String next = list.get(count + 1).getCallsign();
-         
-         if(current.compareTo(next) > 0)
-         {
-            return false;
-         }
-         count++;
-      }
-      return true;
-   }
+
  
-//******************************************
-//Method: sort                             *
-//Purpose: sort the list                   *
-//                                         *
-//Paramaters:                              *
-// LinkedList list     The list to sort    *
-//Returns:             void                *
-//******************************************
-   private void sort(LinkedList<Station> list)
-   {
-      int last = list.size()-1;
-      int place = last;
-      while(!isSorted(list))
-      {
-         //find 'largest' E
-         Station big = list.get(last);
-         for(int index = last;index >= 0;index--)
-         {
-            Station next = list.get(index);
-            if(big.getCallsign().compareTo(next.getCallsign()) < 0)
-            {
-               big = next;
-               place = index;
-            }
-         }
-         //switch with last E
-         if(place < last)
-         {
-            Station temp = list.remove(last);
-            list.add(last,list.get(place));
-            list.set(place, temp);
-         }
-         //find largest E minus last one
-         last--;
-      }
-   }
 
 //******************************************
 //Method: add                              *
