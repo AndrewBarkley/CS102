@@ -11,7 +11,15 @@ import java.io.*;
 
 public class BinaryTree
 {
-   Leaf root;//First leaf
+   private Leaf root;//First leaf
+   final String SEARCH_CALLSIGN = "1";
+   final String SEARCH_FREQUENCY = "2";
+   final String SEARCH_HOME = "3";
+   final String SEARCH_FORMAT = "4";
+   final String ADD_NODE = "5";
+   final String REMOVE = "6";
+   final String PRINT = "7";
+   final String QUIT = "0";
    
 //**************************************************************
 //Method: BinaryTree                                           *
@@ -44,6 +52,48 @@ public class BinaryTree
       else
          return search(target, current.getRight());
    }
+    
+   public String search(String target,String type)
+   {
+      String list = "\nam Stations:\n";//Stores the query results
+      list = list + search(target, type, root);
+      
+      return list;
+   }
+   private String search(String target,String type,Leaf current)
+   {
+      String test = "";//gets search subject
+      String temp = "";//return value
+      switch (type)
+      {
+         case SEARCH_CALLSIGN:
+            test = current.getDatum().getCallsign();
+            break;
+         case SEARCH_FREQUENCY:
+            test = current.getDatum().getFrequency();
+            break;
+         case SEARCH_HOME:
+            test = current.getDatum().getHome();
+            break;
+         case SEARCH_FORMAT:
+            test = current.getDatum().getFormat();
+            break;
+         default:
+            {
+               System.out.print("You should never have come here");
+               throw new IllegalArgumentException();
+            }
+      }
+         
+      search(target, type, current.getLeft());
+      if(test.contains(target))
+      {
+         temp = current.getDatum().toString();
+      }
+      search(target, type, current.getRight());
+      
+      return temp;
+   }
    
    public void add(Station target)
    {
@@ -64,28 +114,32 @@ public class BinaryTree
          current.setRight(add(target, current.getRight()));
          return current;
       }
-      else
+      else if(sCurrent.compareTo(sTarget) > 0)
       {
          current.setLeft(add(target, current.getLeft()));
          return current;
       }
+      else
+      {
+         System.out.println("Sorry but that call sign is already taken\n");
+         return current;
+      }
    }
-   public void remove(Station target)//May change to ask if that is what should be deleted
+   public void remove(String target)//May change to ask if that is what should be deleted
    {
       root = remove(target, root);
    }
-   private Leaf remove(Station target, Leaf current)
+   private Leaf remove(String target, Leaf current)
    {
       if(current == null)
-         System.out.println("fukin error mate");
-      String sTarget = target.getCallsign();
+         System.out.println("Error target does not exist");
       String sCurrent = current.getDatum().getCallsign();
-      if(sCurrent.compareTo(sTarget) < 0)
+      if(sCurrent.compareTo(target) < 0)
       {
          current.setRight(remove(target,current.getRight()));
          return current;
       }
-      if(sCurrent.compareTo(sTarget) > 0)
+      if(sCurrent.compareTo(target) > 0)
       {
          current.setLeft(remove(target,current.getLeft()));
          return current;
@@ -98,7 +152,19 @@ public class BinaryTree
       while(heir.getRight() != null)
          heir = heir.getRight();
       current.setDatum(heir.getDatum());
-      current.setLeft(remove(heir.getDatum(), current.getLeft()));
+      current.setLeft(remove(heir.getDatum().getCallsign(), current.getLeft()));
       return current;
+   }
+   public void print()
+   {
+      print(root);
+   }
+   private void print(Leaf current)
+   {
+      if(current == null)
+         return;
+      print(current.getLeft());
+      System.out.print(current.getDatum());
+      print(current.getRight());
    }
 }
