@@ -19,6 +19,8 @@ public class BinaryTree
    final String ADD_NODE = "5";
    final String REMOVE = "6";
    final String PRINT = "7";
+   final String EXPORT = "8";
+   final String IMPORT = "9";
    final String QUIT = "0";
    
 //**************************************************************

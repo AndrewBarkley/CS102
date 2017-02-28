@@ -3,7 +3,7 @@
 //Login ID: mosl8748                            *
 //CS102, Winter 2017                            *
 //Programming Assignment 4                      *
-//Prog3: Main method and UI                     *
+//Prog4: Main method and UI                     *
 //***********************************************
 
 import java.util.*;
@@ -33,36 +33,8 @@ public class Prog4
    {
       //initiate Database
       Database database = new Database();
-      File inFile = new File("");//initiate as empty file
-      try {inFile = new File(args[0]);}//try load data file
-      catch (ArrayIndexOutOfBoundsException handeled){}
       boolean quit = false;//the program will end when true
-      Scanner in = new Scanner("");//reads data file
-      String storage = "";//in stores info here
-      Scanner input = new Scanner("");//used for station creation
-      try
-      {
-         in = new Scanner(inFile).useDelimiter("/|\n");
-         while(in.hasNextLine())
-            storage = storage + in.nextLine() + "\n";
-         input = new Scanner(storage).useDelimiter("/|\n");
-      }
-      catch (FileNotFoundException handeled)
-      {
-         System.out.print("ERROR 404: File not found \n" +
-                           "The program will now terminate");
-         quit =  true;
-      }
-      
-      try
-      {
-         database.initialize(input);
-      }
-      catch(ArrayStoreException handeled)
-      {//ArrayStore is set to be thrown if 
-       //    the initialize can't store the data
-         quit = true;
-      }
+      initialize(database,quit,args[0]);
       
       //Start User Interface
       
@@ -78,7 +50,8 @@ public class Prog4
                           "5 --> Add a Station\n"+
                           "6 --> Remove a Station\n" +
                           "7 --> Print entire database\n"+
-                          "9 --> Export entire database\n"+
+                          "8 --> Export entire database\n"+
+                          "9 --> Import new database\n"+
                           "0 --> Quit\n>>");
          switch(keyboard.nextLine())
          {
@@ -145,51 +118,36 @@ public class Prog4
                   break;
                }
             case REMOVE:
-               try
                {
-                  database.remove(keyboard);
+                  try
+                  {
+                     database.remove(keyboard);
+                  }
+                  catch(IndexOutOfBoundsException handeled){}
+                  break;
                }
-               catch(IndexOutOfBoundsException handeled){}
-               break;
             case PRINT:
                {  //print all
                   database.print();
                   break;
                }
-            case QUIT:
-               {  //close
-                  System.out.println();
-                  quit = true;
-                  System.out.print("Goodbye");
-                  break;
-               }
-            
-            case IMPORT:
-               {
-                  input = new Scanner("");//used for station creation
-                  try
-                  {
-                     in = new Scanner(inFile).useDelimiter("/|\n");
-                     while(in.hasNextLine())
-                        storage = storage + in.nextLine() + "\n";
-                     input = new Scanner(storage).useDelimiter("/|\n");
-                  }
-                  catch (FileNotFoundException handeled)
-                  {System.out.print("ERROR 404: File not found \n");}
-                  try
-                  {
-                     database.initialize(input);
-                  }
-                  catch(ArrayStoreException handeled)
-                  {//ArrayStore is set to be thrown if 
-                  //    the initialize can't store the data
-                     quit = true;
-                  }
-               }
             case EXPORT:
                {
                   database.export();
-                  System.out.println("done");
+                  System.out.println("\nExported_Data.txt Successfully Exported");
+                  break;
+               }
+            case IMPORT:
+               {
+                  System.out.print("Enter File Name: ");
+                  String filename = keyboard.nextLine();
+                  initialize(database,quit,filename);
+                  break;
+               }
+            case QUIT:
+               {  //close
+                  quit = true;
+                  System.out.print("\nGoodbye");
                   break;
                }
             default:
@@ -199,5 +157,37 @@ public class Prog4
          }
       }
    
+   }
+   
+   public static void initialize(Database database,boolean quit,String fileName)
+   {
+      File inFile = new File("");//initiate as empty file
+      try {inFile = new File(fileName);}//try load data file
+      catch (ArrayIndexOutOfBoundsException handeled){}
+      Scanner in = new Scanner("");//reads data file
+      String storage = "";//in stores info here
+      Scanner input = new Scanner("");//used for station creation
+      try
+      {
+         in = new Scanner(inFile).useDelimiter("/|\n");
+         while(in.hasNextLine())
+            storage = storage + in.nextLine() + "\n";
+         input = new Scanner(storage).useDelimiter("/|\n");
+      }
+      catch (FileNotFoundException handeled)
+      {
+         System.out.print("ERROR 404: File not found \n");
+      }
+      try
+      {
+         database.initialize(input);
+         System.out.println("\nFile Loaded Successfully");
+      }
+      catch(ArrayStoreException handeled)
+      {//ArrayStore is set to be thrown if 
+       //    the initialize can't store the data
+         quit = true;
+      }
+      
    }
 }

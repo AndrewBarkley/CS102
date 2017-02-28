@@ -21,6 +21,8 @@ public class Database
    final String ADD_NODE = "5";
    final String REMOVE = "6";
    final String PRINT = "7";
+   final String EXPORT = "8";
+   final String IMPORT = "9";
    final String QUIT = "0";
       
 //*******************************************************************
@@ -33,6 +35,8 @@ public class Database
 //*******************************************************************
    public void initialize(Scanner input)
    {
+      am = new BinaryTree();
+      fm = new BinaryTree();
       while(input.hasNext())
       {
        //Station to be stored as a node in one list 
@@ -177,7 +181,7 @@ public class Database
       }
       catch (IOException handeled)
       {
-         System.out.println("Ya fuckin goofed");
+         System.out.println("File creation error");
       }
       try
       {
@@ -188,7 +192,7 @@ public class Database
       }
       catch (IOException handeled)
       {
-         System.out.println("Ya fuckin goofed 2.0");
+         System.out.println("File close error");
       }
    }
 }
