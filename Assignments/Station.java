@@ -121,6 +121,19 @@ public class Station
    {
       return frequency;
    }
+   public String getFreqBand()
+   {
+      return freqBand;
+   }
+   public String getFreqValue()
+   {
+      if(getFreqBand().equals("AM"))
+         return String.valueOf(freqValueI / 10);
+      else if(getFreqBand().equals("FM"))
+         return String.valueOf(freqValueD * 10);
+      else
+         return "ERROR";
+   }
    
    public String getHome()
    {
@@ -146,5 +159,13 @@ public class Station
              getFrequency() + ", " +
              getHome() + ": " +
              getFormat() +"\n";
+   }
+   public String export()
+   {
+      return getCallsign() + "/" +
+             getFreqBand() + "/" +
+             getFreqValue() + "/" +
+             getHome() + "/" +
+             getFormat() + "\n";
    }
 }

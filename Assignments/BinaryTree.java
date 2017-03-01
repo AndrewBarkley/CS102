@@ -55,15 +55,17 @@ public class BinaryTree
     
    public String search(String target,String type)
    {
-      String list = "\nam Stations:\n";//Stores the query results
-      list = list + search(target, type, root);
-      
-      return list;
+      String list = "";//Stores the query results
+      return search(target, type, root, list);
    }
-   private String search(String target,String type,Leaf current)
+   private String search(String target,String type,Leaf current,String list)
    {
+      String temp = "";
+      if(current == null)
+      {
+         return "";
+      }
       String test = "";//gets search subject
-      String temp = "";//return value
       switch (type)
       {
          case SEARCH_CALLSIGN:
@@ -85,14 +87,15 @@ public class BinaryTree
             }
       }
          
-      search(target, type, current.getLeft());
-      if(test.contains(target))
+      temp += search(target, type, current.getLeft(), list);
+      if(test.contains(target) && !list.contains(test))
       {
-         temp = current.getDatum().toString();
+         temp += current.getDatum().toString();
       }
-      search(target, type, current.getRight());
+      temp += search(target, type, current.getRight(), list);
       
-      return temp;
+      list = temp;
+      return list;
    }
    
    public void add(Station target)
@@ -166,5 +169,21 @@ public class BinaryTree
       print(current.getLeft());
       System.out.print(current.getDatum());
       print(current.getRight());
+   }
+   public String export()
+   { 
+      String list = "";
+      return export(root, list);
+   }
+   private String export(Leaf current, String list)
+   {
+      String temp = "";
+      if(current == null)
+         return "";
+      temp += current.getDatum().export();
+      temp += export(current.getLeft(),list);
+      temp += export(current.getRight(),list);
+      list = temp;
+      return list;
    }
 }

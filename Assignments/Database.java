@@ -125,7 +125,7 @@ public class Database
       System.out.print("Enter the callsign: ");
       String callsign = in.nextLine();
       
-      System.out.print("Delete this Station? Y/N\n");         
+      System.out.print("Delete this Station? Y/N\n");//            MINOR INCONVENIENCE
       if(band.equalsIgnoreCase("AM"))
       {
          System.out.print(am.search(callsign,SEARCH_CALLSIGN));
@@ -157,9 +157,38 @@ public class Database
    
    public void print()
    {
-      System.out.println("AM Stations:");
+      System.out.println("\nAM Stations:");
       am.print();
-      System.out.println("FM Stations:");
+      System.out.println("\nFM Stations:");
       fm.print();
+   }
+   
+   public void export()
+   {
+      FileWriter fw = null;
+      BufferedWriter bw = null;
+      String data = am.export();
+      data += fm.export();
+      try
+      {
+         fw = new FileWriter("Exported_Data.txt");
+         bw = new BufferedWriter(fw);
+         bw.write(data);
+      }
+      catch (IOException handeled)
+      {
+         System.out.println("Ya fuckin goofed");
+      }
+      try
+      {
+         if(bw != null)
+            bw.close();
+         if(fw != null)
+            fw.close();
+      }
+      catch (IOException handeled)
+      {
+         System.out.println("Ya fuckin goofed 2.0");
+      }
    }
 }

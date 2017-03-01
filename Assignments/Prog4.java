@@ -18,6 +18,8 @@ public class Prog4
    final static String ADD_NODE = "5";
    final static String REMOVE = "6";
    final static String PRINT = "7";
+   final static String EXPORT = "8";
+   final static String IMPORT = "9";
    final static String QUIT = "0";
 //****************************************************
 //Method: Main                                       *
@@ -32,10 +34,7 @@ public class Prog4
       //initiate Database
       Database database = new Database();
       File inFile = new File("");//initiate as empty file
-      try
-      {
-         inFile = new File(args[0]);//try load data file
-      }
+      try {inFile = new File(args[0]);}//try load data file
       catch (ArrayIndexOutOfBoundsException handeled){}
       boolean quit = false;//the program will end when true
       Scanner in = new Scanner("");//reads data file
@@ -71,7 +70,7 @@ public class Prog4
       
       while(quit == false)
       {  //repeating interface of the program
-         System.out.print("Available Commands:\n"+
+         System.out.print("\nAvailable Commands:\n"+
                           "1 --> Search for a call signs\n"+
                           "2 --> Search for a frequency\n"+
                           "3 --> Search for a home\n"+
@@ -79,6 +78,7 @@ public class Prog4
                           "5 --> Add a Station\n"+
                           "6 --> Remove a Station\n" +
                           "7 --> Print entire database\n"+
+                          "9 --> Export entire database\n"+
                           "0 --> Quit\n>>");
          switch(keyboard.nextLine())
          {
@@ -164,6 +164,34 @@ public class Prog4
                   break;
                }
             
+            case IMPORT:
+               {
+                  input = new Scanner("");//used for station creation
+                  try
+                  {
+                     in = new Scanner(inFile).useDelimiter("/|\n");
+                     while(in.hasNextLine())
+                        storage = storage + in.nextLine() + "\n";
+                     input = new Scanner(storage).useDelimiter("/|\n");
+                  }
+                  catch (FileNotFoundException handeled)
+                  {System.out.print("ERROR 404: File not found \n");}
+                  try
+                  {
+                     database.initialize(input);
+                  }
+                  catch(ArrayStoreException handeled)
+                  {//ArrayStore is set to be thrown if 
+                  //    the initialize can't store the data
+                     quit = true;
+                  }
+               }
+            case EXPORT:
+               {
+                  database.export();
+                  System.out.println("done");
+                  break;
+               }
             default:
                {  //Error handeling to force calling on predefined methods
                   System.out.println("\nError 503: Command not recognised\n");
