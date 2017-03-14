@@ -30,37 +30,62 @@ public class Database
 //Purpose: creates and places stations in ther lists                *
 //                                                                  *
 //Paramaters:                                                       *
-// Scanner input          contains the format the user is searching *
+// String fileName        what file to grab from the current folder *
 //Returns:                void                                      *
 //*******************************************************************
-   public void initialize(Scanner input)
+   public void initialize(String fileName)
    {
-      am = new BinaryTree();
-      fm = new BinaryTree();
-      while(input.hasNext())
+      File inFile = new File("");//initiate as empty file
+      try {inFile = new File(fileName);}//try load data file
+      catch (ArrayIndexOutOfBoundsException handeled){}
+      Scanner in = new Scanner("");//reads data file
+      String storage = "";//in stores info here
+      Scanner input = new Scanner("");//used for station creation
+      try
       {
-       //Station to be stored as a node in one list 
-         Station temp = new Station(input);
+         in = new Scanner(inFile).useDelimiter("/|\n");
+         while(in.hasNextLine())
+            storage = storage + in.nextLine() + "\n";
+         input = new Scanner(storage).useDelimiter("/|\n");
+      }
+      catch (FileNotFoundException handeled)
+      {
+         System.out.print("ERROR 404: File not found \n");
+      }
+      try
+      {
+         am = new BinaryTree();
+         fm = new BinaryTree();
+         while(input.hasNext())
+         {
+         //Station to be stored as a node in one list 
+            Station temp = new Station(input);
          
-         if(temp.getFrequency().contains("AM"))
-         {
-            am.add(temp);
-         }
-         else
-         {
-            fm.add(temp);
+            if(temp.getFrequency().contains("AM"))
+            {
+               am.add(temp);
+            }
+            else
+            {
+               fm.add(temp);
+            }
          }
       }
+      catch(ArrayStoreException handeled)
+      {//ArrayStore is set to be thrown if 
+       //    the initialize can't store the data
+         
+         //throw error
+      }
+      
    }
    
-   public String search(String target,String type)
+   public String search(String target,String type,String list)
    {
-      String list = "\nam Stations:\n";//Stores the query results
-      list = list + am.search(target, type);
-      list = list + "\nfm Stations:\n";
-      list = list + fm.search(target, type);
-      
-      return list;
+      if(list.equalsIgnoreCase("am"))
+         return "<html>AM Stations<br><br>" + am.search(target, type);
+      else
+         return "<html>FM Stations<br><br>" + fm.search(target, type);
    }
    
 //******************************************
@@ -71,38 +96,17 @@ public class Database
 // Scanner in     gathers data for Station *
 //Returns:             void                *
 //******************************************
-   public void add(Scanner in)
+   public void add(String input)
    {
+      Scanner in = new Scanner(input).useDelimiter("/|\n");
       boolean isAM = false;//Used to know which list to add it to
-      String temp = "";//holds the data to creae the station
-      System.out.print("\nEnter AM or FM: ");
-                  //if,else if used to check if it's AM or FM
       String band = in.next();//if it's AM/FM
       if(band.equalsIgnoreCase("am"))
-      {
          isAM = true;
-         temp = "AM/";
-      }
-      else if(band.equalsIgnoreCase("fm"))
-         temp = "FM/";
-      else
-      {
-         System.out.println("Incorrect band, canceling addition");
-         throw new IllegalArgumentException();
-      }
-      System.out.print("\nEnter your Call Sign: ");
-      temp = temp + in.next() +"/";
-      System.out.print("\nEnter your Frequency: ");
-      temp = temp + in.next() +"/";
-      System.out.print("\nEnter your Home: ");
-      in.nextLine();//skips empty line
-      temp = temp + in.nextLine() +"/";
-      System.out.print("\nEnter your Format: ");
-      temp = temp + in.nextLine();
+      
       try
       {
-         System.out.println();
-         Station adding = new Station(temp);
+         Station adding = new Station(input);
                      
          if(isAM)
             am.add(adding);
@@ -122,35 +126,21 @@ public class Database
 // Scanner in     gathers data and confirmation  *
 //Returns:             void                      *
 //************************************************
-   public void remove(Scanner in)
+   public void remove(String input)
    {
-      System.out.print("AM or FM: ");
-      String band = in.nextLine();
-      System.out.print("Enter the callsign: ");
-      String callsign = in.nextLine();
+      Scanner in = new Scanner(input).useDelimiter("/");
+      String band = in.next();
+      String callsign = in.next();
       
-      System.out.print("Delete this Station? Y/N\n");//            MINOR INCONVENIENCE
       if(band.equalsIgnoreCase("AM"))
       {
-         System.out.print(am.search(callsign,SEARCH_CALLSIGN));
-         if(in.nextLine().equalsIgnoreCase("y"))
-         {
-            am.remove(callsign);
-            System.out.print("Station Deleted\n\n");
-         }
-         else
-            System.out.print("Delete canceled. Returning to menu\n\n");
+         am.remove(callsign);
+         System.out.print("Station Deleted\n\n");
       }
       else if(band.equalsIgnoreCase("FM"))
       {
-         System.out.print(fm.search(callsign,SEARCH_CALLSIGN));
-         if(in.nextLine().equalsIgnoreCase("y"))
-         {
-            fm.remove(callsign);
-            System.out.print("Station Deleted\n\n");
-         }
-         else
-            System.out.print("Delete canceled. Returning to menu\n\n");
+         fm.remove(callsign);
+         System.out.print("Station Deleted\n\n");
       }
       else
       {
@@ -159,15 +149,15 @@ public class Database
       } 
    }
    
-   public void print()
+   public String print(String list)// change for individual print
    {
-      System.out.println("\nAM Stations:");
-      am.print();
-      System.out.println("\nFM Stations:");
-      fm.print();
+      if(list == "am")
+         return "<html>AM Stations<br><br>" + am.print();
+      else 
+         return "<html>FM Stations<br><br>" + fm.print();
    }
    
-   public void export()
+   public void export(String fileName)
    {
       FileWriter fw = null;
       BufferedWriter bw = null;
@@ -175,7 +165,7 @@ public class Database
       data += fm.export();
       try
       {
-         fw = new FileWriter("Exported_Data.txt");
+         fw = new FileWriter(fileName + ".txt");
          bw = new BufferedWriter(fw);
          bw.write(data);
       }

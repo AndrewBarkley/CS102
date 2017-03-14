@@ -58,7 +58,9 @@ public class BinaryTree
    public String search(String target,String type)
    {
       String list = "";//Stores the query results
-      return search(target, type, root, list);
+      list += search(target, type, root, list);
+      list += "</html>";
+      return list;
    }
    private String search(String target,String type,Leaf current,String list)
    {
@@ -90,9 +92,9 @@ public class BinaryTree
       }
          
       temp += search(target, type, current.getLeft(), list);
-      if(test.contains(target) && !list.contains(test))
+      if(test.contains(target))// && !list.contains(test))
       {
-         temp += current.getDatum().toString();
+         temp += current.getDatum().toString() + "<br>";
       }
       temp += search(target, type, current.getRight(), list);
       
@@ -137,7 +139,10 @@ public class BinaryTree
    private Leaf remove(String target, Leaf current)
    {
       if(current == null)
+      {
          System.out.println("Error target does not exist");
+         throw new IndexOutOfBoundsException();
+      }
       String sCurrent = current.getDatum().getCallsign();
       if(sCurrent.compareTo(target) < 0)
       {
@@ -160,17 +165,23 @@ public class BinaryTree
       current.setLeft(remove(heir.getDatum().getCallsign(), current.getLeft()));
       return current;
    }
-   public void print()
+   public String print()
    {
-      print(root);
+      String temp = "";
+      temp += print(root);
+      temp += "</html>";
+      return temp;
    }
-   private void print(Leaf current)
+   private String print(Leaf current) // untested
    {
+      String temp = "";
       if(current == null)
-         return;
-      print(current.getLeft());
-      System.out.print(current.getDatum());
-      print(current.getRight());
+         return temp;
+      temp += print(current.getLeft());
+      temp += current.getDatum() + "<br>";
+      temp += print(current.getRight());
+      
+      return temp;
    }
    public String export()
    { 

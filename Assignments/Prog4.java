@@ -8,6 +8,9 @@
 
 import java.util.*;
 import java.io.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class Prog4
 {
@@ -21,6 +24,7 @@ public class Prog4
    final static String EXPORT = "8";
    final static String IMPORT = "9";
    final static String QUIT = "0";
+   static  Database database = new Database();//initiate Database
 //****************************************************
 //Method: Main                                       *
 //Purpose: Main method / UI that calls on methods    *
@@ -31,163 +35,10 @@ public class Prog4
 //****************************************************
    public static void main(String [] args)
    {
-      //initiate Database
-      Database database = new Database();
-      boolean quit = false;//the program will end when true
-      initialize(database,quit,args[0]);
+      database.initialize(args[0]);
       
-      //Start User Interface
-      
-      Scanner keyboard = new Scanner(System.in);//gets user commands
-      
-      while(quit == false)
-      {  //repeating interface of the program
-         System.out.print("\nAvailable Commands:\n"+
-                          "1 --> Search for a call signs\n"+
-                          "2 --> Search for a frequency\n"+
-                          "3 --> Search for a home\n"+
-                          "4 --> Search for a format\n"+
-                          "5 --> Add a Station\n"+
-                          "6 --> Remove a Station\n" +
-                          "7 --> Print entire database\n"+
-                          "8 --> Export entire database\n"+
-                          "9 --> Import new database\n"+
-                          "0 --> Quit\n>>");
-         switch(keyboard.nextLine())
-         {
-            case SEARCH_CALLSIGN:
-               {  //search call sign
-                  System.out.print("\nEnter your Call Sign: ");
-                  try
-                  {
-                     System.out.println(database.search(keyboard.nextLine(),SEARCH_CALLSIGN));
-                  }
-                  catch(IllegalArgumentException handeled)
-                  {
-                     System.out.println("Unexpected Runtime Error");
-                  }
-                  break;
-               }
-            
-            case SEARCH_FREQUENCY:
-               {  //search frequency
-                  System.out.print("\nEnter your Frequency Value: ");
-                  try
-                  {
-                     System.out.println(database.search(keyboard.nextLine(),SEARCH_FREQUENCY));
-                  }
-                  catch(IllegalArgumentException handeled)
-                  {
-                     System.out.println("Unexpected Runtime Error");
-                  }
-                  break;
-               }
-            case SEARCH_HOME:
-               {  //search home
-                  System.out.print("\nEnter your Home: ");
-                  try
-                  {
-                     System.out.println(database.search(keyboard.nextLine(),SEARCH_HOME));
-                  }
-                  catch(IllegalArgumentException handeled)
-                  {
-                     System.out.println("Unexpected Runtime Error");
-                  }
-                  break;
-               }
-            case SEARCH_FORMAT:
-               {  //search format
-                  System.out.print("\nEnter your Format: ");
-                  try
-                  {
-                     System.out.println(database.search(keyboard.nextLine(),SEARCH_FORMAT));
-                  }
-                  catch(IllegalArgumentException handeled)
-                  {
-                     System.out.println("Unexpected Runtime Error");
-                  }
-                  break;
-               }
-            case ADD_NODE:
-               {
-                  try
-                  {
-                     database.add(keyboard);
-                  }
-                  catch(IllegalArgumentException handeled){}
-                  break;
-               }
-            case REMOVE:
-               {
-                  try
-                  {
-                     database.remove(keyboard);
-                  }
-                  catch(IndexOutOfBoundsException handeled){}
-                  break;
-               }
-            case PRINT:
-               {  //print all
-                  database.print();
-                  break;
-               }
-            case EXPORT:
-               {
-                  database.export();
-                  System.out.println("\nExported_Data.txt Successfully Exported");
-                  break;
-               }
-            case IMPORT:
-               {
-                  System.out.print("Enter File Name: ");
-                  String filename = keyboard.nextLine();
-                  initialize(database,quit,filename);
-                  break;
-               }
-            case QUIT:
-               {  //close
-                  quit = true;
-                  System.out.print("\nGoodbye");
-                  break;
-               }
-            default:
-               {  //Error handeling to force calling on predefined methods
-                  System.out.println("\nError 503: Command not recognised\n");
-               }
-         }
-      }
-   
-   }
-   
-   public static void initialize(Database database,boolean quit,String fileName)
-   {
-      File inFile = new File("");//initiate as empty file
-      try {inFile = new File(fileName);}//try load data file
-      catch (ArrayIndexOutOfBoundsException handeled){}
-      Scanner in = new Scanner("");//reads data file
-      String storage = "";//in stores info here
-      Scanner input = new Scanner("");//used for station creation
-      try
-      {
-         in = new Scanner(inFile).useDelimiter("/|\n");
-         while(in.hasNextLine())
-            storage = storage + in.nextLine() + "\n";
-         input = new Scanner(storage).useDelimiter("/|\n");
-      }
-      catch (FileNotFoundException handeled)
-      {
-         System.out.print("ERROR 404: File not found \n");
-      }
-      try
-      {
-         database.initialize(input);
-         System.out.println("\nFile Loaded Successfully");
-      }
-      catch(ArrayStoreException handeled)
-      {//ArrayStore is set to be thrown if 
-       //    the initialize can't store the data
-         quit = true;
-      }
-      
+      //Run GUI
+      Display gui = new Display(database);
+      gui.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
    }
 }

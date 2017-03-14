@@ -1,0 +1,5 @@
+Cancun,Club Med,all inclusive,1230
+Colorado,Club Med,all inclusive,780
+Jamaica,Extreme Vacations,all inclusive,1150
+Orlando,Disney Vacations,unlimited pass to DisneyWorld,800
+Pinehurst,Golf Concepts,unlimited golf,900
