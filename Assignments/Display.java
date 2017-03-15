@@ -161,14 +161,12 @@ public class Display extends JFrame
                {
                   try
                   {
-                  
                      test = database.search( call,SEARCH_S_CALLSIGN,band);
-                     System.out.println(test);
+                     //remove excess title data from test
                      test = test.replace("<html>AM Stations","");
                      test = test.replace("<html>FM Stations","");
                      test = test.replace("</html>","");
                      test = test.replace("<br>","");
-                     System.out.println(test);
                      test = "Are You Sure? Remove:\n" + test;
                      if(test.equals("Are You Sure? Remove:\n"))
                         throw new IndexOutOfBoundsException();
@@ -179,7 +177,11 @@ public class Display extends JFrame
                                                    JOptionPane.WARNING_MESSAGE);
                   
                      if(removeBool == 0)
+                     {
                         database.remove(input);
+                        JOptionPane.showMessageDialog(null, "Station Removed", 
+                                    "Success", JOptionPane.INFORMATION_MESSAGE);
+                     }
                   }
                   catch(IndexOutOfBoundsException handeled)
                   {
@@ -212,7 +214,11 @@ public class Display extends JFrame
                                  "Exporting", JOptionPane.YES_NO_OPTION, 
                                  JOptionPane.WARNING_MESSAGE);
                if(importBool == 0)
+               {
                   database.initialize(input);
+                  JOptionPane.showMessageDialog(null, "Import Successful", 
+                                    "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+               }
             }
          }
          else //done

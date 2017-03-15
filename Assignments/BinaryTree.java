@@ -8,6 +8,9 @@
 
 import java.util.*;
 import java.io.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class BinaryTree
 {
@@ -86,7 +89,8 @@ public class BinaryTree
             break;
          default:
             {
-               System.out.print("You should never have come here");
+               JOptionPane.showMessageDialog(null, "If you're reading this, my code broke", 
+                                    "ERROR", JOptionPane.WARNING_MESSAGE);
                throw new IllegalArgumentException();
             }
       }
@@ -128,7 +132,8 @@ public class BinaryTree
       }
       else
       {
-         System.out.println("Sorry but that call sign is already taken\n");
+         JOptionPane.showMessageDialog(null, "Sorry, that callsign is already in use", 
+                                    "Warning", JOptionPane.WARNING_MESSAGE);
          return current;
       }
    }
@@ -140,7 +145,8 @@ public class BinaryTree
    {
       if(current == null)
       {
-         System.out.println("Error target does not exist");
+         JOptionPane.showMessageDialog(null, "ERROR: Station Does Not Exist", 
+                                    "ERROR", JOptionPane.ERROR_MESSAGE);
          throw new IndexOutOfBoundsException();
       }
       String sCurrent = current.getDatum().getCallsign();

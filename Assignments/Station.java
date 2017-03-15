@@ -8,6 +8,9 @@
 
 import java.util.*;
 import java.io.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class Station
 {
@@ -49,15 +52,15 @@ public class Station
       //The catch() and if() ensure every variable has a value or the program closes
       catch(NullPointerException handeled)
       {
-         System.out.println("ERROR 307: Invalid Station object input.\n"+
-            "\nProgram will now terminate");
+         JOptionPane.showMessageDialog(null, "Failure Creating a Station", 
+                                    "ERROR", JOptionPane.ERROR_MESSAGE);
          throw new ArrayStoreException();
       }
       if(callsign=="" || frequency=="" ||
          home=="" || format=="")
       {
-         System.out.println("ERROR 307: Invalid Station object input.\n"+
-            "\nProgram will now terminate");
+         JOptionPane.showMessageDialog(null, "Failure Creating a Station", 
+                                    "ERROR", JOptionPane.ERROR_MESSAGE);
          throw new ArrayStoreException();
       }
    }
@@ -92,15 +95,15 @@ public class Station
       //The catch() and if() ensure every variable has a value or the program closes
       catch(NullPointerException handeled)
       {
-         System.out.println("ERROR 307: Invalid Station object input.\n"+
-            "\nAdd canceled");
+         JOptionPane.showMessageDialog(null, "Failure Creating a Station", 
+                                    "ERROR", JOptionPane.ERROR_MESSAGE);
          throw new ArrayStoreException();
       }
       if(callsign=="" || frequency=="" ||
          home=="" || format=="")
       {
-         System.out.println("ERROR 307: Invalid Station object input.\n"+
-            "\nAdd canceled");
+         JOptionPane.showMessageDialog(null, "Failure Creating a Station", 
+                                    "ERROR", JOptionPane.ERROR_MESSAGE);
          throw new ArrayStoreException();
       }
    }

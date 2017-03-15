@@ -8,6 +8,9 @@
 
 import java.util.*;
 import java.io.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class Database
 {
@@ -50,7 +53,8 @@ public class Database
       }
       catch (FileNotFoundException handeled)
       {
-         System.out.print("ERROR 404: File not found \n");
+         JOptionPane.showMessageDialog(null, "File Not Found", 
+                                    "ERROR", JOptionPane.ERROR_MESSAGE);;
       }
       try
       {
@@ -115,7 +119,10 @@ public class Database
       }
       catch(ArrayStoreException handeled){}//user already notified just exit
       catch(NumberFormatException handeled)
-      {System.out.print("\nInvalidFrequency\n");}
+      {
+         JOptionPane.showMessageDialog(null, "Invalid Frequency", 
+                                    "ERROR", JOptionPane.ERROR_MESSAGE);
+      }
    }
 
 //************************************************
@@ -133,20 +140,11 @@ public class Database
       String callsign = in.next();
       
       if(band.equalsIgnoreCase("AM"))
-      {
          am.remove(callsign);
-         System.out.print("Station Deleted\n\n");
-      }
       else if(band.equalsIgnoreCase("FM"))
-      {
          fm.remove(callsign);
-         System.out.print("Station Deleted\n\n");
-      }
       else
-      {
-         System.out.println("Band not recognised\n");
          throw new IndexOutOfBoundsException();
-      } 
    }
    
    public String print(String list)// change for individual print
@@ -171,7 +169,8 @@ public class Database
       }
       catch (IOException handeled)
       {
-         System.out.println("File creation error");
+         JOptionPane.showMessageDialog(null, "File Creation Error", 
+                                    "ERROR", JOptionPane.ERROR_MESSAGE);
       }
       try
       {
@@ -182,7 +181,8 @@ public class Database
       }
       catch (IOException handeled)
       {
-         System.out.println("File close error");
+         JOptionPane.showMessageDialog(null, "File Close Error", 
+                                    "ERROR", JOptionPane.ERROR_MESSAGE);
       }
    }
 }
