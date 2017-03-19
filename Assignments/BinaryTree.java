@@ -2,7 +2,7 @@
 //Zachary Mosley                                         *
 //Login ID: mosl8748                                     *
 //CS102, Winter 2017                                     *
-//Programming Assignment 2                               *
+//Programming Assignment 5                               *
 //BinaryTree: An object class to store station data      *
 //********************************************************
 
@@ -38,6 +38,16 @@ public class BinaryTree
       root = null;
    }
    
+//******************************************************
+//Method: search                                       *
+//Purpose: searches if target is in tree               *
+//                                                     *
+//Paramaters:                                          *
+// Station target    The Station you're looking for    *
+// Leaf current      Cycles throught the tree looking  *
+//Returns:                                             *
+// boolean           True if station is there          *
+//******************************************************
    public boolean search(Station target)
    {
       return search(target, root);
@@ -58,6 +68,18 @@ public class BinaryTree
          return search(target, current.getRight());
    }
     
+//*********************************************************
+//Method: search                                          *
+//Purpose: searches if target is in tree & returns it     *
+//                                                        *
+//Paramaters:                                             *
+// String target    The String you're looking for         *
+// String type      Where to look for the target          *
+// Leaf current     Cycles throught the tree looking      *
+// String list      Holds all stations that match target  *
+//Returns:                                                *
+// String list       True if station is there             *
+//*********************************************************
    public String search(String target,String type)
    {
       String list = "";//Stores the query results
@@ -106,6 +128,15 @@ public class BinaryTree
       return list;
    }
    
+//************************************************
+//Method: add                                    *
+//Purpose: adds a Station to the tree            *
+//                                               *
+//Paramaters:                                    *
+// Station target    The Station you're adding   *
+// Leaf current      Where to add the station    *
+//Returns:               void                    *
+//************************************************
    public void add(Station target)
    {
       root = add(target, root);
@@ -137,7 +168,17 @@ public class BinaryTree
          return current;
       }
    }
-   public void remove(String target)//May change to ask if that is what should be deleted
+   
+//************************************************
+//Method: remove                                 *
+//Purpose: removes a Station from the tree       *
+//                                               *
+//Paramaters:                                    *
+// Station target    The Station you're removing *
+// Leaf current      Where the target is         *
+//Returns:               void                    *
+//************************************************
+   public void remove(String target)
    {
       root = remove(target, root);
    }
@@ -171,6 +212,16 @@ public class BinaryTree
       current.setLeft(remove(heir.getDatum().getCallsign(), current.getLeft()));
       return current;
    }
+   
+//*********************************************
+//Method: print                               *
+//Purpose: prints the tree                    *
+//                                            *
+//Paramaters:                                 *
+// Leaf current   Cycles through entire tree  *
+//Returns:                                    *
+// String temp    holds entire tree           *
+//*********************************************
    public String print()
    {
       String temp = "";
@@ -189,6 +240,17 @@ public class BinaryTree
       
       return temp;
    }
+   
+//*********************************************
+//Method: export                              *
+//Purpose: returns the tree in specific order *
+//                                            *
+//Paramaters:                                 *
+// Leaf current   Cycles through entire tree  *
+// String list    holds entire tree           *
+//Returns:                                    *
+// String list    holds entire tree           *
+//*********************************************
    public String export()
    { 
       String list = "";

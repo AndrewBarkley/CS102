@@ -2,8 +2,8 @@
 //Zachary Mosley                                *
 //Login ID: mosl8748                            *
 //CS102, Winter 2017                            *
-//Programming Assignment 4                      *
-//Prog4: Main method and UI                     *
+//Programming Assignment 5                      *
+//Prog5: Main method                            *
 //***********************************************
 
 import java.util.*;
@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Prog4
+public class Prog5
 {
    final static String SEARCH_CALLSIGN = "1";
    final static String SEARCH_FREQUENCY = "2";
@@ -25,6 +25,7 @@ public class Prog4
    final static String IMPORT = "9";
    final static String QUIT = "0";
    static  Database database = new Database();//initiate Database
+   
 //****************************************************
 //Method: Main                                       *
 //Purpose: Main method / UI that calls on methods    *
@@ -35,7 +36,7 @@ public class Prog4
 //****************************************************
    public static void main(String [] args)
    {
-      database.initialize(args[0]);
+      database.initialize(args[0]);//initializes stations
       
       //Run GUI
       Display gui = new Display(database);

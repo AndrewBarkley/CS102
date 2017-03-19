@@ -3,7 +3,7 @@
 //Login ID: mosl8748                            *
 //CS102, Winter 2017                            *
 //Programming Assignment 5                      *
-//Prog4: GUI                                    *
+//Display: GUI                                  *
 //***********************************************
 
 import java.io.*;
@@ -14,6 +14,7 @@ import java.awt.event.*;
 
 public class Display extends JFrame
 {
+   //These are constants to label each button
    final int SEARCH_CALLSIGN = 0;
    final String SEARCH_S_CALLSIGN = "1";
    final int SEARCH_FREQUENCY = 1;
@@ -27,11 +28,11 @@ public class Display extends JFrame
    final String S_REMOVE = "5";
    final int EXPORT = 6;
    final int IMPORT = 7;
-   public Database database;
-   private Container contents;
-   private JPanel optionPanel;
-   private JButton [] optionButtons;
-   private String [] optionNames = {
+   public Database database;//holds station data
+   private Container contents;//holds the window panel
+   private JPanel optionPanel;//holds layout
+   private JButton [] optionButtons;//main buttons
+   private String [] optionNames = {//button names
             "Search Callsign",
             "Search Frequency",
             "Search Home",
@@ -42,18 +43,27 @@ public class Display extends JFrame
             "Import",
             "Print" };
 
-
+   //****************************************************
+   //Method: Display                                    *
+   //Purpose: GUI Constructor                           *
+   //                                                   *
+   //Paramaters:                                        *
+   // Database database     holds all station data      *
+   //Returns:               Display object              *
+   //****************************************************
    public Display(Database database)
    {
-      super( "Radio Database" );
-      this.database = database;
+      super( "Radio Database" );//titles the window
+      this.database = database;//database is now a class variable
    
+      //setup the layout
       contents = getContentPane( );
       contents.setLayout( new GridLayout() );
    
       optionPanel = new JPanel( );
       optionPanel.setLayout( new GridLayout( 5, 2 ) );
    
+      //create buttons and add them to a common listeners
       OptionButtonHandler obh = new OptionButtonHandler( );
       optionButtons = new JButton[optionNames.length];
    
@@ -71,13 +81,17 @@ public class Display extends JFrame
       setVisible( true );
    }
 
+   //****************************************************
+   //Class: OptionButtonHandler                         *
+   //Purpose: Waits for a button press                  *
+   //****************************************************
    private class OptionButtonHandler
                         implements ActionListener
    {
-      String input = "";
+      String input = "";//contains the input data for most options
       public void actionPerformed( ActionEvent ae )
       {
-         if ( ae.getSource( ) == optionButtons[SEARCH_CALLSIGN] )//done
+         if ( ae.getSource( ) == optionButtons[SEARCH_CALLSIGN] )
          {
             input = JOptionPane.showInputDialog("Enter Callsign");
             if(input != null && !input.equals(""))
@@ -86,7 +100,7 @@ public class Display extends JFrame
                      database.search( input,SEARCH_S_CALLSIGN,"fm"));
             }
          }
-         else if ( ae.getSource( ) == optionButtons[SEARCH_FREQUENCY] )//done
+         else if ( ae.getSource( ) == optionButtons[SEARCH_FREQUENCY] )
          {
             input = JOptionPane.showInputDialog("Enter Frequency");
             if(input != null && !input.equals(""))
@@ -95,7 +109,7 @@ public class Display extends JFrame
                      database.search( input,SEARCH_S_FREQUENCY,"fm"));
             }
          }
-         else if ( ae.getSource( ) == optionButtons[SEARCH_HOME] )//done
+         else if ( ae.getSource( ) == optionButtons[SEARCH_HOME] )
          {
             input = JOptionPane.showInputDialog("Enter Home");
             if(input != null && !input.equals(""))
@@ -104,7 +118,7 @@ public class Display extends JFrame
                      database.search( input,SEARCH_S_HOME,"fm"));
             }
          }
-         else if ( ae.getSource( ) == optionButtons[SEARCH_FORMAT] )//done
+         else if ( ae.getSource( ) == optionButtons[SEARCH_FORMAT] )
          {
             input = JOptionPane.showInputDialog("Enter Format");
             if(input != null && !input.equals(""))
@@ -113,9 +127,9 @@ public class Display extends JFrame
                      database.search( input,SEARCH_S_FORMAT,"fm"));
             }
          }
-         else if ( ae.getSource( ) == optionButtons[ADD_NODE] )//done
+         else if ( ae.getSource( ) == optionButtons[ADD_NODE] )
          {
-            String test = "";
+            String test = "";//compares against input to prevent empty input
             input = JOptionPane.showInputDialog("Enter Band");
             if(input != null && !input.equals(""))
             {
@@ -146,12 +160,13 @@ public class Display extends JFrame
                }
             }
          }
-         else if ( ae.getSource( ) == optionButtons[REMOVE] )//done
+         else if ( ae.getSource( ) == optionButtons[REMOVE] )
          {
-            String test = "";//tests to ensure actual input
+            input = "";//Resets input String
+            String test = "";//tests to ensure non-empty input
             String band = JOptionPane.showInputDialog("Enter Station Band");
             input += band;
-            if(input != null && !input.equals(""))
+            if(!input.equals("null") && !input.equals(""))
             {
                input += "/";
                test = input;
@@ -168,10 +183,10 @@ public class Display extends JFrame
                      test = test.replace("</html>","");
                      test = test.replace("<br>","");
                      test = "Are You Sure? Remove:\n" + test;
-                     if(test.equals("Are You Sure? Remove:\n"))
+                     if(test.equals("Are You Sure? Remove:\n"))//search() found no station
                         throw new IndexOutOfBoundsException();
                                  
-                     int removeBool;
+                     int removeBool;//asks for confirmation
                      removeBool = JOptionPane.showConfirmDialog(null,test, "Removing", 
                                                    JOptionPane.YES_NO_OPTION, 
                                                    JOptionPane.WARNING_MESSAGE);
@@ -190,12 +205,12 @@ public class Display extends JFrame
                }
             }
          }
-         else if ( ae.getSource( ) == optionButtons[EXPORT] )//done
+         else if ( ae.getSource( ) == optionButtons[EXPORT] )
          {
             input = JOptionPane.showInputDialog("Enter Your Filename (without .txt)");
             if(input != null && !input.equals(""))
             {
-               int exportBool;
+               int exportBool;//confirmation
                exportBool = JOptionPane.showConfirmDialog(null,"Save as:\n"+input+".txt", 
                                              "Exporting", JOptionPane.YES_NO_OPTION, 
                                              JOptionPane.WARNING_MESSAGE);
@@ -203,12 +218,12 @@ public class Display extends JFrame
                   database.export(input);  
             }                                         
          }
-         else if ( ae.getSource( ) == optionButtons[IMPORT] )//done
+         else if ( ae.getSource( ) == optionButtons[IMPORT] )
          {
             input = JOptionPane.showInputDialog("Enter Full Filename");
             if(input != null && !input.equals(""))
             {
-               int importBool;
+               int importBool;//confirmation
                importBool = JOptionPane.showConfirmDialog(null,
                                  "Erase Current Database and Import:\n"+input, 
                                  "Exporting", JOptionPane.YES_NO_OPTION, 
@@ -221,17 +236,27 @@ public class Display extends JFrame
                }
             }
          }
-         else //done
+         else 
          {
             print( database.print("am"),database.print("fm") );  
          }
       }
    }
-  
+   
+   //*****************************************************
+   //Method: print                                       *
+   //Purpose: creates window to display all station data *
+   //                                                    *
+   //Paramaters:                                         *
+   // String amString   holds data for am stations       *
+   // String fmString   holds data for fm stations       *
+   //Returns:           void                             *
+   //*****************************************************
    public void print( String amString, String fmString )
    {
          //Create Window with Dual Column Layout
       JFrame frame = new JFrame( "Station Data" );
+         //setup layouts
       Container bands = new Container( );
       bands.setLayout( new GridLayout( 1,2,5,0 ) );
       frame.add( bands );

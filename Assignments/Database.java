@@ -2,7 +2,7 @@
 //Zachary Mosley                                       *
 //Login ID: mosl8748                                   *
 //CS102, Winter 2017                                   *
-//Programming Assignment 3                             *
+//Programming Assignment 5                             *
 //Database: Stores/Manages all Nodes in an linkedList  *
 //******************************************************
 
@@ -84,6 +84,17 @@ public class Database
       
    }
    
+//*******************************************************************
+//Method: Search                                                    *
+//Purpose: creates and places stations in ther lists                *
+//                                                                  *
+//Paramaters:                                                       *
+// String target        what you are looking for                    *
+// String type          where are you looking for it                *
+// String list          which list is it in                         *
+//Returns:                                                          *
+// String:              search results                              *
+//*******************************************************************
    public String search(String target,String type,String list)
    {
       if(list.equalsIgnoreCase("am"))
@@ -94,10 +105,10 @@ public class Database
    
 //******************************************
 //Method: add                              *
-//Purpose: gathers data for new station    *
+//Purpose: adds new station                *
 //                                         *
 //Paramaters:                              *
-// Scanner in     gathers data for Station *
+// String in     contains data for Station *
 //Returns:             void                *
 //******************************************
    public void add(String input)
@@ -118,7 +129,7 @@ public class Database
             fm.add(adding);
       }
       catch(ArrayStoreException handeled){}//user already notified just exit
-      catch(NumberFormatException handeled)
+      catch(NumberFormatException handeled)//displays an error message
       {
          JOptionPane.showMessageDialog(null, "Invalid Frequency", 
                                     "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -130,7 +141,7 @@ public class Database
 //Purpose: ensures user removes correct Station  *
 //                                               *
 //Paramaters:                                    *
-// Scanner in     gathers data and confirmation  *
+// String in      removes the station            *
 //Returns:             void                      *
 //************************************************
    public void remove(String input)
@@ -146,8 +157,17 @@ public class Database
       else
          throw new IndexOutOfBoundsException();
    }
-   
-   public String print(String list)// change for individual print
+
+//*******************************************************
+//Method: print                                         *
+//Purpose: returns list of all stations in that list    *
+//                                                      *
+//Paramaters:                                           *
+// String list    which list to print                   *
+//Returns:                                              *
+// String         holds all station data                *
+//*******************************************************
+   public String print(String list)
    {
       if(list == "am")
          return "<html>AM Stations<br><br>" + am.print();
@@ -155,6 +175,14 @@ public class Database
          return "<html>FM Stations<br><br>" + fm.print();
    }
    
+//************************************************
+//Method: export                                 *
+//Purpose: saves a .txt file with some name      *
+//                                               *
+//Paramaters:                                    *
+// String fileName     the file's name           *
+//Returns:             void                      *
+//************************************************
    public void export(String fileName)
    {
       FileWriter fw = null;
